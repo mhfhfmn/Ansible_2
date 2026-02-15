@@ -1,0 +1,19 @@
+---
+- name: Deploy tuned
+  hosts: servers
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Install tuned
+      ansible.builtin.package:
+        name: tuned
+        state: present
+
+    - name: Enabled and running tuned service
+      ansible.builtin.systemd:
+        name: tuned
+        state: started
+        enabled: yes
+        daemon_reload: yes

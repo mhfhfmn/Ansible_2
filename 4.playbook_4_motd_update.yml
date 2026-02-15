@@ -1,0 +1,41 @@
+---
+- name: Change MOTD
+  hosts: servers
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    greet_message: "Солнце в зените, хорошего дня!"
+
+  tasks:
+    - name: Set IP address
+      ansible.builtin.set_fact:
+        management_ip: >-
+          {% if ansible_default_ipv4.address is defined %}
+          {{ ansible_default_ipv4.address }}
+          {% elif ansible_all_ipv4_addresses | length > 0 %}
+          {{ ansible_all_ipv4_addresses[0] }}
+          {% else %}
+          "IP address not available"
+          {% endif %}
+
+    - name: Create message
+      ansible.builtin.copy:
+        content: |
+          |==============================================================|
+          |                      WELCOME MESSAGE                         |
+          |==============================================================|
+          |  Hostname: {{ ansible_fqdn }} ({{ ansible_hostname }})       
+          |  IP Address: {{ management_ip }}                             
+          |  {{ greet_message }}                                         
+          |==============================================================|
+          |  System Details:                                             
+          |  - OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
+          |  - Kernel: {{ ansible_kernel }}                              
+          |  - Architecture: {{ ansible_architecture }}                  
+          |  - CPUs: {{ ansible_processor_cores }} cores                 
+          |  - Memory: {{ (ansible_memtotal_mb / 1024) | round(2) }} GB  
+          |==============================================================|
+        dest: /etc/motd
+        mode: '0644'
+        backup: yes

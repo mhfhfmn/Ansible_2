@@ -1,0 +1,15 @@
+
+PLAY [Change MOTD] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [10.100.0.125]
+ok: [10.100.0.124]
+
+TASK [Custom message] **********************************************************
+changed: [10.100.0.124]
+changed: [10.100.0.125]
+
+PLAY RECAP *********************************************************************
+10.100.0.124               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.100.0.125               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

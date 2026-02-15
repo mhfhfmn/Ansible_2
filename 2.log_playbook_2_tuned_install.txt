@@ -1,0 +1,19 @@
+
+PLAY [Deploy tuned] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [10.100.0.125]
+ok: [10.100.0.124]
+
+TASK [Install tuned] ***********************************************************
+changed: [10.100.0.125]
+changed: [10.100.0.124]
+
+TASK [Enabled and running tuned service] ***************************************
+ok: [10.100.0.124]
+ok: [10.100.0.125]
+
+PLAY RECAP *********************************************************************
+10.100.0.124               : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.100.0.125               : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

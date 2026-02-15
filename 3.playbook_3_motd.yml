@@ -1,0 +1,15 @@
+---
+- name: Change MOTD
+  hosts: servers
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    custom_motd: "Солнце в зените, хорошего дня!"
+
+  tasks:
+    - name: Custom message
+      ansible.builtin.copy:
+        content: "{{ custom_motd }}\n"
+        dest: /etc/motd
+        mode: '0644'
