@@ -33,7 +33,7 @@
   become_user: root
   become_method: sudo
 ``` 
-1 playbook доступен по ссылке https://github.com/mhfhfmn/Ansible_2/1.playbook_1_download_and_unpack.yml
+1 playbook доступен по ссылке https://github.com/mhfhfmn/Ansible_2/blob/main/1.playbook_1_download_and_unpack.yml
 Содержимое файла:
 ```
 ---
@@ -75,7 +75,7 @@
         state: absent
 ```
 
-Вывод работы playbook доступен по ссылке https://github.com/mhfhfmn/Ansible_2/1.log_playbook_1_download_and_unpack.txt
+Вывод работы playbook доступен по ссылке https://github.com/mhfhfmn/Ansible_2/blob/main/1.log_playbook_1_download_and_unpack.txt
 Содержимое файла:
 ```
 PLAY [Download and unpack Apache Kafka] ****************************************
