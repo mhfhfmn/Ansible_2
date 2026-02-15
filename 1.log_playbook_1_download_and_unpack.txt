@@ -1,0 +1,27 @@
+
+PLAY [Download and unpack Apache Kafka] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [10.100.0.125]
+ok: [10.100.0.124]
+
+TASK [Create directory] ********************************************************
+changed: [10.100.0.125]
+changed: [10.100.0.124]
+
+TASK [Download] ****************************************************************
+changed: [10.100.0.125]
+changed: [10.100.0.124]
+
+TASK [Extract archive] *********************************************************
+changed: [10.100.0.124]
+changed: [10.100.0.125]
+
+TASK [Clean up temporary archive] **********************************************
+changed: [10.100.0.125]
+changed: [10.100.0.124]
+
+PLAY RECAP *********************************************************************
+10.100.0.124               : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.100.0.125               : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

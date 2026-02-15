@@ -1,0 +1,37 @@
+---
+- name: Download and unpack Apache Kafka
+  hosts: servers
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    download_url: "https://dlcdn.apache.org/kafka/4.1.1/kafka-4.1.1-src.tgz"
+    destination_dir: "/opt/kafka"
+    archive_name: "kafka.tgz"
+
+  tasks:
+    - name: Create directory
+      ansible.builtin.file:
+        path: "{{ destination_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download
+      ansible.builtin.get_url:
+        url: "{{ download_url }}"
+        dest: "/tmp/{{ archive_name }}"
+        mode: '0644'
+        timeout: 30
+
+    - name: Extract archive
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ archive_name }}"
+        dest: "{{ destination_dir }}"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+        creates: "{{ destination_dir }}/bin/kafka-server-start.sh"
+
+    - name: Clean up temporary archive
+      ansible.builtin.file:
+        path: "/tmp/{{ archive_name }}"
+        state: absent
