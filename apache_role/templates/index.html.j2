@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Information - {{ ansible_hostname }}</title>
+</head>
+<body>
+    <h1>System Information: {{ ansible_hostname }}</h1>
+        
+    <h2>CPU Cores</h2>
+    <h3>{{ ansible_processor_cores }}</h3>
+    <h3>{{ ansible_processor[0] | truncate(50, True) }}</h3>
+
+    <h2>RAM</h2>
+    <h3>{{ (ansible_memtotal_mb / 1024) | round(2) }} GB</h3>
+
+    <h2>First HDD</h2>
+    <h3>{{ (ansible_mounts[0].size_total / 1024 / 1024 / 1024) | round(2) }} GB</h3>
+    <h3>{{ ansible_mounts[0].mount }} - {{ ansible_mounts[0].device }}</h3>
+
+    <h2>IP Address</h2>
+    <h3>{{ ansible_default_ipv4.address }}</h3>
+    <h3>{{ ansible_default_ipv4.interface }}</h3>
+
+    <h2>Detailed System Information</h2>
+    <h3>Operating System:</h3>
+    <h4>{{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }})</h3>
+    <h3>Kernel Version:</h3>
+    <h4>{{ ansible_kernel }}</h3>
+    <h3>Architecture:</h3>
+    <h4>{{ ansible_architecture }}</h3>
+    <h3>Hostname:</h3>
+    <h4>{{ ansible_fqdn }} ({{ ansible_hostname }})</h3>
+    <h3>CPU Model:</h3>
+    <h4>{{ ansible_processor[1] | default(ansible_processor[0]) }}</h3>
+    <h3>Total RAM:</h3>
+    <h4>{{ ansible_memtotal_mb }} MB ({{ (ansible_memtotal_mb / 1024) | round(2) }} GB)</h3>
+    <h3>Free RAM:</h3>
+    <h4>{{ ansible_memfree_mb }} MB ({{ (ansible_memfree_mb / 1024) | round(2) }} GB)</h3>
+    <h3>Disk Usage ({{ ansible_mounts[0].mount }}):</h3>
+    <h4>{{ (ansible_mounts[0].size_available / 1024 / 1024 / 1024) | round(2) }} GB free of {{ (ansible_mounts[0].size_total / 1024 / 1024 / 1024) | round(2) }} GB</h3>
+    <h3>Network Interface:</h3>
+    <h4>{{ ansible_default_ipv4.interface }} ({{ ansible_default_ipv4.address }})</h3>
+    <h3>MAC Address:</h3>
+    <h4>{{ ansible_default_ipv4.macaddress | default('Not available') }}</h3>
+</body>
+</html>

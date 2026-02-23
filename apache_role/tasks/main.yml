@@ -1,0 +1,41 @@
+---
+
+- name: Install Apache
+  ansible.builtin.package:
+    name: apache2
+    state: present
+
+- name: Create index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ apache_document_root }}/index.html"
+    mode: '0644'
+    owner: "{{ apache_user }}"
+    group: "{{ apache_group }}"
+  notify: restart apache
+
+- name: Started and enabled Apache
+  ansible.builtin.service:
+    name: "{{ apache_service }}"
+    state: started
+    enabled: yes
+
+- name: Open port 80 (ufw)
+  community.general.ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+  when: ansible_facts.services['ufw'] is defined
+
+- name: Check web server
+  ansible.builtin.uri:
+    url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4'].address }}"
+    method: GET
+    status_code: 200
+    return_content: yes
+  register: web_check
+  until: web_check.status == 200
+  retries: 5
+  delay: 3
+  changed_when: false
+  delegate_to: localhost
