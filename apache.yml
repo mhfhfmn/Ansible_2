@@ -1,6 +1,0 @@
----
-- name: Install Apache and configure custom index.html
-  hosts: servers
-  become: yes
-  roles:
-    - apache_role
