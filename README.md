@@ -252,3 +252,60 @@ PLAY RECAP *********************************************************************
 10.100.0.125               : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 ```
+
+
+### Задание 3
+
+Роль доступна по ссылке https://github.com/mhfhfmn/Ansible_2/blob/main/apache_role/
+
+Playbook для запуска доступен по ссылке https://github.com/mhfhfmn/Ansible_2/blob/main/5.playbook_apache.yml
+Содержимое файла:
+```
+---
+- name: Install Apache and configure custom index.html
+  hosts: servers
+  become: yes
+  roles:
+    - apache_role
+```
+
+Вывод работы playbook доступен по ссылке https://github.com/mhfhfmn/Ansible_2/blob/main/5.log_playbook_apache.txt
+Содержимое файла:
+```
+PLAY [Install Apache and configure custom index.html] **************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [10.100.0.125]
+ok: [10.100.0.124]
+
+TASK [apache_role : Install Apache] ********************************************
+changed: [10.100.0.124]
+changed: [10.100.0.125]
+
+TASK [apache_role : Create index.html] *****************************************
+changed: [10.100.0.125]
+changed: [10.100.0.124]
+
+TASK [apache_role : Started and enabled Apache] ********************************
+ok: [10.100.0.125]
+ok: [10.100.0.124]
+
+TASK [apache_role : Open port 80 (ufw)] ****************************************
+skipping: [10.100.0.125]
+skipping: [10.100.0.124]
+
+TASK [apache_role : Check web server] ******************************************
+ok: [10.100.0.125 -> localhost]
+ok: [10.100.0.124 -> localhost]
+
+RUNNING HANDLER [apache_role : restart apache] *********************************
+changed: [10.100.0.125]
+changed: [10.100.0.124]
+
+PLAY RECAP *********************************************************************
+10.100.0.124               : ok=6    changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+10.100.0.125               : ok=6    changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+```
+
+Web страница с результатом работы playbook:
+![Web страница](https://github.com/mhfhfmn/Ansible_2/blob/main/img/5.screen_web_apache.jpg)
